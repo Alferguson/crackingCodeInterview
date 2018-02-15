@@ -1,20 +1,20 @@
 function uniqueStr(str) {
+    let unique = true;
     arrStr = str.split("");
-    console.log(arrStr);
     arrStr.forEach(letter => {
         let counter = 0;
         arrStr.forEach(diffLetter => {
-            if (arrStr[diffLetter] === arrStr[letter]) {
-                console.log(`Diff is ${arrStr[diffLetter]} and other is ${arrStr[letter]}`)
+            if (diffLetter === letter) {
                 counter++;
                 if (counter >= 2) {
-                    return false;
+                    unique = false;
                 }
             }
         });
     });
-    return true;
+    return unique;
 };
 
 // console.log(uniqueStr("xyz"));
 console.log(uniqueStr("yyy"));
+console.log(uniqueStr("xyz"));
