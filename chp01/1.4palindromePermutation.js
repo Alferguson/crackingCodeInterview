@@ -10,7 +10,7 @@
 function palindromePerm(str) {
     let newStr = str.split(" ").join("");
     let oddLetterCompare;
-    let oddLetterCounter;
+    let oddLetterCounter = 0;
     // check if string is even length not including spaces
     for (let i = 0; i < newStr.length; i++) {
         let counter = 0;
@@ -34,3 +34,8 @@ function palindromePerm(str) {
 console.log(palindromePerm("Heyo"));
 console.log(palindromePerm("wywy"));
 console.log(palindromePerm("ninix"));
+console.log(palindromePerm("ninixxx"));
+console.log(palindromePerm("raceacr"));
+console.log(palindromePerm("x"));
+console.log(palindromePerm("bug bug"));
+console.log(palindromePerm("bug not"));
