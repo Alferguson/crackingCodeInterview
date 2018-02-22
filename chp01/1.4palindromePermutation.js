@@ -19,6 +19,7 @@ function palindromePerm(str) {
                 counter++;
             };
         }
+        // if a letter appears once or more in an odd amount (1,3,5, etc)
         if (counter % 2 !== 0) {
             oddLetterCounter++;
             if (oddLetterCounter > 1 && oddLetterCompare !== newStr[i]) {
