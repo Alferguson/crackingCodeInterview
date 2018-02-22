@@ -7,9 +7,9 @@
 // Output: "Mr%20John%20Smith"
 
 function URLify(str) {
-    return str.split(" ").join("%20");
+    return str.trim().split(" ").join("%20");
 };
 
-console.log(URLify("I eat beans on the daily"));
+console.log(URLify("I eat beans on the daily        "));
 
 console.log(URLify("Ilied,Iwouldneverdothat"));
