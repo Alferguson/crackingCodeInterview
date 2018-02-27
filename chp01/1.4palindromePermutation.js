@@ -5,13 +5,11 @@
 // EXAMPLE
 // Input: Tact Coa
 // Output: True (permutations: "taco cat", "atco eta", etc.)
-// Hints: #106, #121, #134, #136 
 
 function palindromePerm(str) {
     let newStr = str.split(" ").join("");
     let oddLetterCompare;
     let oddLetterCounter = 0;
-    // check if string is even length not including spaces
     for (let i = 0; i < newStr.length; i++) {
         let counter = 0;
         for (let j = 0; j < newStr.length; j++) {
