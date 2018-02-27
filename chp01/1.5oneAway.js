@@ -37,7 +37,7 @@ function oneAway(str1, str2) {
     }
 };
 let pale = "pale"
-console.log(pale[3]);
+console.log(pale[4]);
 console.log(oneAway("pale", "ple"));
 console.log(oneAway("pales", "pale"));
 console.log(oneAway("pale", "bale"));
