@@ -11,13 +11,16 @@ function zeroMatrix(matrix) {
         }
     }
     for (let k = 0; k < matrixArr.length; k++) {
-        console.log(matrixArr[k][0])
-        matrix[matrixArr[k][0]].forEach(element => {
-            element = 0;
-        });
+        let arrayRow = matrixArr[k][0];
+        let arrayColumn = matrixArr[k][1];
+        // to change each element in array to 0
+        for (let m = 0; m < matrix[arrayRow].length; m++) {
+            matrix[arrayRow][m] = 0;
+        }
+        // to change each element in a column to 0
         for (let l = 0; l < matrix.length; l++) {
-            matrix[l][matrixArr[k][1]] = 0;
-        } 
+            matrix[l][arrayColumn] = 0;
+        }
     }
     return matrix;
 }
@@ -26,7 +29,7 @@ function zeroMatrix(matrix) {
 let matrixArr1 = [
     [1, 2, 1, 4],
     [4, 2, 1, 4],
-    [4, 4, 0, 4],
+    [4, 0, 8, 4], /*[2,1]*/
     [9, 1, 2, 4]
 ];
 let matrixArr2 = [
