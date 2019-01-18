@@ -3,7 +3,7 @@ const reverse = function(x) {
   let neg = false;
   const absX = Math.abs(x);
   
-  if (x === 0 || x > ((2**31) - 1) || x < -(2**31)) {
+  if (x === 0) {
    return 0;   
   }
   else if (x < 0) {
@@ -15,7 +15,10 @@ const reverse = function(x) {
       answer.push(numStrArr[i]);
   }
   let newAns = answer.join("");
-  let newNewAns = neg ? -parseInt(newAns) : parseInt(newAns);
-  return newNewAns;  
+  newAns = neg ? -parseInt(newAns) : parseInt(newAns);
+  if (newAns > ((2**31) - 1) || newAns < -(2**31)) {
+    return 0;
+  }
+  return newAns;  
 };
 console.log(reverse(325));
