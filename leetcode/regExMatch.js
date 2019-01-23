@@ -48,73 +48,101 @@
  * @param {string} p
  * @return {boolean}
  */
-const isMatch = (s, p) => {
-  const strArr = s.split("");
-  const expArr = p.split("");
-  let j = 0;
-  for (let i = 0; i < strArr.length; i++) {
-    let char = strArr[i];
-    let match = expArr[j];
-    let matchAnyChar = false; // .
-    let matchThisChar = false; // *
-    let matchAllChars = false;
-    if (expArr[j] === ".") matchAnyChar = true;
-    if (expArr[j + 1] === "*") matchThisChar = true;
-    matchAllChars = matchAnyChar && matchThisChar ? true : false;
-    j++;
-    if (!matchThisChar && expArr[j] && !strArr[i + 1]) {
-      return false;
-    }
-    else if (matchAllChars) {
-      if (!expArr[j + 1]) {
-        return true;
-      }
-      const findMatchIndex = findFirstMatch(s, strArr.length - 1, i, expArr[j + 1]);
-      if (!findMatchIndex) {
-        return false;
-      }
-      i = i + findMatchIndex;
-      j++;
-      continue;
-    }
-    else if (matchAnyChar) {
-      continue;
-    }
-    else if (matchThisChar) {
-      i = i + recursiveMatchCheck(s, i, match);
-      j++;
-      continue;
-    }
-    else if (char === match) {
-      continue;
-    }
-    else if (char !== match) {
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
-  return true;
-};
+// const isMatch = (s, p) => {
+//   const strArr = s.split("");
+//   const expArr = p.split("");
+//   let j = 0;
+//   for (let i = 0; i < strArr.length; i++) {
+//     let char = strArr[i];
+//     let match = expArr[j];
+//     let matchAnyChar = false; // .
+//     let matchThisChar = false; // *
+//     let matchAllChars = false;
+//     if (expArr[j] === ".") matchAnyChar = true;
+//     if (expArr[j + 1] === "*") matchThisChar = true;
+//     matchAllChars = matchAnyChar && matchThisChar ? true : false;
+//     j++;
+//     if (!matchThisChar && expArr[j] && !strArr[i + 1]) {
+//       return false;
+//     }
+//     else if (matchAllChars) {
+//       if (!expArr[j + 1]) {
+//         return true;
+//       }
+//       const findMatchIndex = findFirstMatch(s, strArr.length - 1, i, expArr[j + 1]);
+//       if (!findMatchIndex) {
+//         return false;
+//       }
+//       i = i + findMatchIndex;
+//       j++;
+//       continue;
+//     }
+//     else if (matchAnyChar) {
+//       continue;
+//     }
+//     else if (matchThisChar) {
+//       i = i + recursiveMatchCheck(s, i, match);
+//       j++;
+//       continue;
+//     }
+//     else if (char === match) {
+//       continue;
+//     }
+//     else if (char !== match) {
+//       return false;
+//     }
+//     else {
+//       return true;
+//     }
+//   }
+//   return true;
+// };
 
-function recursiveMatchCheck(str, begin, match, numOfMatches = 0) {
-  if (str[begin] === match) {
-    recursiveMatchCheck(str, ++begin, match, ++numOfMatches);
+// function recursiveMatchCheck(str, begin, match, numOfMatches = 0) {
+//   if (str[begin] === match) {
+//     recursiveMatchCheck(str, ++begin, match, ++numOfMatches);
+//   }
+//   return numOfMatches;
+// }
+// function findFirstMatch(str, begin, startingIndex, match) {
+//   if (str[begin] === match) {
+//     return true;
+//   }
+//   else if (startingIndex === begin) {
+//     begin = 0;
+//   }
+//   else {
+//     findFirstMatch(str, --begin, match);
+//   }
+//   return begin;
+// }
+
+
+const isMatch = (s, p) => {
+  const store = {};
+  let ans = false;
+  function dp(i, j) {
+    if (!store[i] && !store[j]) {
+      if (j === p.length()) {
+        ans = i === s.length() ? true : false;
+      }
+      else {
+        const firstMatch = i < s.length() && (store[p[j] || p[j] === "."]);
+        if (j + 1 < p.length() && p[j + 1] === "*") {
+          const dpCheck = dp(i, j + 2);
+          const otherCheck = (firstMatch && dp(i + 1, j));
+          ans = (dpCheck || otherCheck) ? true : false;
+        }
+        else {
+          ans = (firstMatch && dp(i + 1, j + 1)) ? true : false;
+        }
+      }
+      store[i] = ans;
+      store[j] = ans;
+    }
+    return (store[i] === store[j] ? true : false);
   }
-  return numOfMatches;
-}
-function findFirstMatch(str, begin, startingIndex, match) {
-  if (str[begin] === match) {
-    return true;
-  }
-  else if (startingIndex === begin) {
-    begin = 0;
-  }
-  else {
-    findFirstMatch(str, --begin, match);
-  }
-  return begin;
+  return dp(0, 0);
 }
 
 console.log(isMatch("aa", "a")); // false
