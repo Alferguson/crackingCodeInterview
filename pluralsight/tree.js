@@ -6,6 +6,21 @@ class Node {
   }
 }
 
+class Queue {
+  constructor() {
+    this.items = [];
+  }
+  enqueue(val) {
+    this.items.unshift(val);
+  }
+  dequeue() {
+    return this.items.shift();
+  }
+  front() {
+    return this.items[0];
+  }
+}
+
 class BST {
   constructor() {
     this.root = null;
@@ -141,6 +156,32 @@ class BST {
     this.postOrderTraversal(currNode.right);
     console.log(currNode.key);
   }
+  levelOrderTraversal(currNode = this.root) {
+    const rootHeight = this.height(currNode);
+    
+    for (let i = 1; i <= rootHeight; i++) {
+      this.levelHelper(currNode, i)
+    }
+  }
+  levelHelper(currNode, level) {
+    if (!currNode) {
+      return;
+    }
+    if (level === 1) {
+      console.log(currNode.key);
+    }
+    else if (level > 1) {
+      this.levelHelper(currNode.left, level - 1);
+      this.levelHelper(currNode.right, level - 1);
+    }
+  }
+  height(currNode) {
+    if (!currNode) return 0;
+    const leftHeight = this.height(currNode.left);
+    const rightHeight = this.height(currNode.right);
+
+    return 1 + Math.max(leftHeight, rightHeight);
+  }
 }
 
 const bst = new BST();
@@ -154,11 +195,12 @@ bst.add(1);
 bst.add(80);
 bst.add(700);
 
-bst.preOrderTraversal();
+// bst.preOrderTraversal();
+bst.levelOrderTraversal();
 console.log(bst.root);
-bst.remove(60);
-bst.preOrderTraversal();
-console.log(bst.root);
-bst.remove(80);
-bst.preOrderTraversal();
-console.log(bst.root);
+// bst.remove(60);
+// bst.preOrderTraversal();
+// console.log(bst.root);
+// bst.remove(80);
+// bst.preOrderTraversal();
+// console.log(bst.root);
